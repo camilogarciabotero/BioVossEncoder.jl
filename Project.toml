@@ -1,0 +1,9 @@
+name = "BioBinarySeq"
+uuid = "e7894126-fa72-4101-935a-4d6cb73e7565"
+authors = ["Camilo García<ca.garcia2@uniandes.edu.co>",]
+version = "0.1.0"
+
+[deps]
+
+[compat]
+julia = "1.9"
