@@ -1,15 +1,15 @@
 module BioBinarySeq
 
-module BioMarkovChains
-
 using BioSequences:
     SeqOrView,
     NucleicSeqOrView,
 
     NucleicAcidAlphabet,
     DNA,
-    DNAAlphabet
-
+    DNAAlphabet,
+    RNA,
+    RNAAlphabet,
+    Alphabet
 
 using PrecompileTools: @setup_workload, @compile_workload
 using TestItems: @testitem
@@ -29,4 +29,4 @@ export BinarySequenceMatrix
     end
 end
 
-end # BioBinarySeq
+end # end module BioBinarySeq
