@@ -14,16 +14,19 @@ using BioSequences:
 using PrecompileTools: @setup_workload, @compile_workload
 using TestItems: @testitem
 
+include("types.jl")
+export BinarySequenceMatrix
 
-# exampleseq = dna"TACGCTAGTGCA"
-
-# xm = BinarySequenceMatrix(exampleseq)
-# xv = _sequence_binarizer(exampleseq, DNA_A)
-
-# wt = wavelet(WT.haar) # db2, db4, haar, coif1, bior1.3, sym2, rbio1.3
-
-# xt = dwt(xm.bsm, wt)
-# xt = dwt(xv, wt)
-
+@setup_workload begin
+    # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
+    # precompile file and potentially make loading faster.
+    using BioSequences
+    seq = randdnaseq(10^3)
+    @compile_workload begin
+        # all calls in this block will be precompiled, regardless of whether
+        # they belong to your package or not (on Julia 1.8 and higher)
+        BinarySequenceMatrix(seq)
+    end
+end
 
 end # BioBinarySeq
