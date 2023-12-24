@@ -1,4 +1,19 @@
+"""
+    struct BinarySequenceMatrix{A<:NucleicAcidAlphabet, B<:BitMatrix}
 
+The `BinarySequenceMatrix` struct represents a binary matrix encoding a sequence of nucleic acids.
+
+# Fields
+- `alphabet::A`: The nucleic acid alphabet used for encoding.
+- `bsm::B`: The binary matrix representing the encoded sequence.
+
+# Constructors
+- `BinarySequenceMatrix(sequence::SeqOrView{A})`: Constructs a `BinarySequenceMatrix` from a sequence of nucleic acids.
+
+## Arguments
+- `sequence::SeqOrView{A}`: The sequence of nucleic acids to be encoded.
+
+"""
 struct BinarySequenceMatrix{A<:NucleicAcidAlphabet, B<:BitMatrix}
     alphabet::A
     bsm::B
@@ -21,3 +36,13 @@ struct BinarySequenceMatrix{A<:NucleicAcidAlphabet, B<:BitMatrix}
     end
 end
 
+const BSM = BinarySequenceMatrix
+
+@testitem "BSM" begin
+    using BioSequences
+    seq01 = dna"TACGCTAGTGCA"
+
+    bsm = BinarySequenceMatrix(seq01)
+    bsm.alphabet == DNA
+    bsm.bsm == Bool[0 1 0 0 0 0 1 0 0 0 0 1; 0 0 1 0 1 0 0 0 0 0 1 0; 0 0 0 1 0 0 0 1 0 1 0 0; 1 0 0 0 0 1 0 0 1 0 0 0]
+end

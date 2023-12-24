@@ -1,6 +1,2 @@
-using Test
-using BioVossEncoder
-
-@testset "BioVossEncoder.jl" begin
-    @test 1 == 1
-end # BioVossEncoder.jl tests
+using TestItemRunner: @run_package_tests
+@run_package_tests

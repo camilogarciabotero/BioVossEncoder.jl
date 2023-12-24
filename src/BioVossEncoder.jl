@@ -15,7 +15,7 @@ using PrecompileTools: @setup_workload, @compile_workload
 using TestItems: @testitem
 
 include("types.jl")
-export BinarySequenceMatrix
+export BinarySequenceMatrix, BSM
 
 @setup_workload begin
     # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
