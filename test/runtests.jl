@@ -1,6 +1,6 @@
 using Test
-using BioBinarySeq
+using BioVossEncoder
 
-@testset "BioBinarySeq.jl" begin
+@testset "BioVossEncoder.jl" begin
     @test 1 == 1
-end # BioBinarySeq.jl tests
+end # BioVossEncoder.jl tests

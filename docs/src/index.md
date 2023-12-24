@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = BioBinarySeq
+CurrentModule = BioVossEncoder
 ```
 
-# BioBinarySeq
+# BioVossEncoder
 
-Documentation for [BioBinarySeq](https://github.com/Camilo García/BioBinarySeq.jl).
+Documentation for [BioVossEncoder](https://github.com/Camilo García/BioVossEncoder.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [BioBinarySeq]
+Modules = [BioVossEncoder]
 ```

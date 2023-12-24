@@ -1,4 +1,4 @@
-module BioBinarySeq
+module BioVossEncoder
 
 using BioSequences:
     SeqOrView,
@@ -29,4 +29,4 @@ export BinarySequenceMatrix
     end
 end
 
-end # end module BioBinarySeq
+end # end module BioVossEncoder
