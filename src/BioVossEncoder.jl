@@ -19,7 +19,7 @@ export BinarySequenceMatrix, BSM
 
 @setup_workload begin
     # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
-    # precompile file and potentially make loading faster.
+    # precompile file and potentiall y make loading faster.
     using BioSequences
     seq = randdnaseq(10^3)
     @compile_workload begin
