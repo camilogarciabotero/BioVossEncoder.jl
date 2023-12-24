@@ -1,7 +1,7 @@
 """
     struct BinarySequenceMatrix{A<:NucleicAcidAlphabet, B<:BitMatrix}
 
-The `BinarySequenceMatrix` struct represents a binary matrix encoding a sequence of nucleic acids.
+The `BinarySequenceMatrix` struct represents a binary matrix encoding a sequence of nucleic acids. This is also called the Voss representation of a sequence.
 
 # Fields
 - `alphabet::A`: The nucleic acid alphabet used for encoding.
@@ -38,7 +38,7 @@ end
 
 const BSM = BinarySequenceMatrix
 @testitem "BSM" begin
-    using BioSequences
+    using BioSequences, BioVossEncoder
 
     seq01 = dna"TACGCTAGTGCA"
 

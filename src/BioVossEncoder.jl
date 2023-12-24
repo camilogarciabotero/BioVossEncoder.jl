@@ -12,8 +12,7 @@ using BioSequences:
     Alphabet
 
 using PrecompileTools: @setup_workload, @compile_workload
-using TestItems: @testitem
-using TestItemRunner: @run_package_tests
+using TestItemRunner: @testitem
 
 include("types.jl")
 export BinarySequenceMatrix, BSM
