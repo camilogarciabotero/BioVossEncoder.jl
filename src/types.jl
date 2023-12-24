@@ -37,12 +37,12 @@ struct BinarySequenceMatrix{A<:NucleicAcidAlphabet, B<:BitMatrix}
 end
 
 const BSM = BinarySequenceMatrix
-
 @testitem "BSM" begin
     using BioSequences
+
     seq01 = dna"TACGCTAGTGCA"
 
     bsm = BinarySequenceMatrix(seq01)
     bsm.alphabet == DNA
-    bsm.bsm == Bool[0 1 0 0 0 0 1 0 0 0 0 1; 0 0 1 0 1 0 0 0 0 0 1 0; 0 0 0 1 0 0 0 1 0 1 0 0; 1 0 0 0 0 1 0 0 1 0 0 0]
+    @test bsm.bsm == Bool[0 1 0 0 0 0 1 0 0 0 0 1; 0 0 1 0 1 0 0 0 0 0 1 0; 0 0 0 1 0 0 0 1 0 1 0 0; 1 0 0 0 0 1 0 0 1 0 0 0]
 end
