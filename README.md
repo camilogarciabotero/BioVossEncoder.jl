@@ -20,6 +20,7 @@
 
 # BioVossEncoder
 
+> A Julia package for encoding biological sequences into Voss representation
 
 ## Installation
 
