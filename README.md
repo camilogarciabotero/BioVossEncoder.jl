@@ -61,10 +61,24 @@ julia> BinarySequenceMatrix(seq)
 
     BinarySequenceMatrix{NucleicAcidAlphabet, BitMatrix}(DNAAlphabet{4}(), Bool[1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1])
 
+For simplicity the `BinarySequenceMatrix` struct provides a property `bsm` that returns the `BitMatrix` representation of the sequence.
+
 ```julia
 
 julia> BinarySequenceMatrix(seq).bsm
 
+```
+
+    4×4 BitMatrix:
+     1  0  0  0
+     0  1  0  0
+     0  0  1  0
+     0  0  0  1
+
+Similarly another function that makes use of the `BinarySequenceMatrix` struct is `binary_sequence_matrix` which returns the `BitMatrix` representation of a sequence directly.
+
+```julia
+julia> binary_sequence_matrix(seq)
 ```
 
     4×4 BitMatrix:
