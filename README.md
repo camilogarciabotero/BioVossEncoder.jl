@@ -1,6 +1,6 @@
 <div align="center">
   <img src="docs/src/assets/logo.svg" height="150"><br/>
-  <i>Representing biological sequences as Markov chains</i><br/><br/>
+  <i>Coverting biological sequences into Voss representation</i><br/><br/>
 </div>
 
 <div align="center">
