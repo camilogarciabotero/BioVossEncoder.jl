@@ -6,7 +6,7 @@ DocMeta.setdocmeta!(BioVossEncoder, :DocTestSetup, :(using BioVossEncoder); recu
 makedocs(;
     modules = [BioVossEncoder],
     authors = "Camilo García",
-    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
+    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl/blob/{commit}{path}#{line}",
     sitename = "BioVossEncoder.jl",
     format = Documenter.HTML(
         mathengine=MathJax3(),
