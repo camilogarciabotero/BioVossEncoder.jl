@@ -3,7 +3,7 @@
 
 <p align="center">
   <img src="assets/logo.svg" height="150"><br/>
-  <i>Coverting biological sequences into Voss representation</i>
+  <i>Converting biological sequences into Voss representation</i>
 </p>
 
 Documentation for [BioVossEncoder](https://github.com/Camilo García/BioVossEncoder.jl).

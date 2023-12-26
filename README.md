@@ -1,6 +1,6 @@
 <div align="center">
   <img src="docs/src/assets/logo.svg" height="150"><br/>
-  <i>Coverting biological sequences into Voss representation</i><br/><br/>
+  <i>Converting biological sequences into Voss representation</i><br/><br/>
 </div>
 
 <div align="center">
