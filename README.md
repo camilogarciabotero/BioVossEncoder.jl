@@ -1,6 +1,6 @@
 <div align="center">
   <img src="docs/src/assets/logo.svg" height="150"><br/>
-  <i>Converting biological sequences into Voss representation</i><br/><br/>
+  <i>Encoding biological sequences into Voss representation</i><br/><br/>
 </div>
 
 <div align="center">
@@ -38,7 +38,3 @@ BioVossEncoder is a &nbsp;
 ```julia
 pkg> add BioVossEncoder
 ```
-
-## License
-
-MIT License

@@ -1,9 +1,7 @@
-# BioVossEncoder
-
 ```@raw html
 <p align="center">
   <img src="assets/logo.svg" height="150"><br/>
-  <i>Converting biological sequences into Voss representation</i>
+  <i>Encoding biological sequences into Voss representation</i>
 </p>
 ```
 
