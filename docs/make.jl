@@ -12,6 +12,7 @@ makedocs(;
         mathengine=MathJax3(),
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical="https://camilogarciabotero.github.io/BioVossEncoder.jl",
+        repolink = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
     ),
     pages = [
         "Home" => "index.md",
