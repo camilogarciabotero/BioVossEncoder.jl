@@ -18,4 +18,4 @@ makedocs(;
     sitename = "BioVossEncoder.jl",
 )
 
-deploydocs(; repo = "https://github.com/Camilo García/BioVossEncoder.jl")
+deploydocs(; repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl")
