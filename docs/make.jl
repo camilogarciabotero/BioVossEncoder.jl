@@ -12,7 +12,6 @@ makedocs(;
         mathengine=MathJax3(),
         prettyurls = get(ENV, "CI", "false") == "true",
         canonical="https://camilogarciabotero.github.io/BioVossEncoder.jl",
-        assets=String[indigo],
     ),
     pages = [
         "Home" => "index.md",
