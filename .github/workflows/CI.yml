@@ -56,6 +56,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using BioBinarySeq
-            DocMeta.setdocmeta!(BioBinarySeq, :DocTestSetup, :(using BioBinarySeq); recursive=true)
-            doctest(BioBinarySeq)'
+            using BioVossEncoder
+            DocMeta.setdocmeta!(BioVossEncoder, :DocTestSetup, :(using BioVossEncoder); recursive=true)
+            doctest(BioVossEncoder)'
