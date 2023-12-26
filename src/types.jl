@@ -32,10 +32,6 @@ end
 
 const BSM = BinarySequenceMatrix
 
-function binary_sequence_matrix(sequence::SeqOrView{A}) where {A <: NucleicAcidAlphabet}
-    return BSM(sequence).bsm
-end
-
 @testitem "BSM" begin
     using BioSequences, BioVossEncoder
 
