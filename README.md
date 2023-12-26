@@ -45,7 +45,7 @@ This package provides a simple and fast way to encode biological sequences into 
 
 ```julia
 
-julia> using BioVossEncoder
+julia> using BioSequences, BioVossEncoder
 
 ```
 
