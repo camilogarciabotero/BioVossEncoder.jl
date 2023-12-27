@@ -8,10 +8,15 @@ using BioSequences:
     DNAAlphabet,
     RNA,
     RNAAlphabet,
-    Alphabet
+    Alphabet,
+    randdnaseq,
+    DNA_A,
+    DNA_C,
+    DNA_G,
+    DNA_T,
+    RNA_U
 
 using PrecompileTools: @setup_workload, @compile_workload
-using TestItemRunner: @testitem
 
 include("types.jl")
 export BinarySequenceMatrix, BSM
@@ -22,8 +27,7 @@ export binary_sequence_matrix, sequence_binarizer
 @setup_workload begin
     # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
     # precompile file and potentiall y make loading faster.
-    using BioSequences
-    seq = randdnaseq(10^3)
+    seq = randdnaseq(10)
     @compile_workload begin
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)

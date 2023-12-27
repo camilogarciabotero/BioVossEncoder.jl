@@ -1,2 +1,9 @@
-using TestItemRunner: @run_package_tests
-@run_package_tests
+module TestBioVossEncoder
+
+using Test
+using BioVossEncoder
+using BioSequences
+
+include("binarysequencematrix.jl")
+
+end
