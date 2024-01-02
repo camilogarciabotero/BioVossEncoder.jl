@@ -11,7 +11,8 @@
 
 <a href="https://camilogarciabotero.github.io/BioVossEncoder.jl/dev/"><img src="https://img.shields.io/badge/documentation-online-blue.svg?logo=Julia&logoColor=white" alt="Documentation"></a>
 <a href="https://github.com/camilogarciabotero/BioVossEncoder.jl/releases/latest"><img src="https://img.shields.io/github/release/camilogarciabotero/BioVossEncoder.jl.svg" alt="Latest Release"></a>
-<a href="https://zenodo.org/badge/latestdoi/665161607"><img src="https://zenodo.org/badge/665161607.svg" alt="DOI"></a>
+<a href="https://doi.org/10.5281/zenodo.10452378"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.10452378.svg" alt="DOI"></a>
+
 <br/>
 <a href="https://github.com/camilogarciabotero/BioVossEncoder.jl/actions/workflows/CI.yml"><img src="https://github.com/camilogarciabotero/BioVossEncoder.jl/actions/workflows/CI.yml/badge.svg" alt="CI Workflow"></a>
 <a href="https://github.com/camilogarciabotero/BioVossEncoder.jl/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
