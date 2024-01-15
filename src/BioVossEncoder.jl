@@ -1,9 +1,12 @@
 module BioVossEncoder
 
-using BioSymbols: BioSymbol
+using BioSymbols: BioSymbol, compatbits
 
 using BioSequences:
     SeqOrView,
+    LongSequence,
+    NucSeq,
+    LongSequence,
 
     Alphabet,
     NucleicAcidAlphabet,
