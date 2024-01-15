@@ -1,6 +1,5 @@
 import Base: length, size, show
 
-# length(b::BSM) = size(b.bsm, 2)
 size(b::BSM) = size(b.bsm)
 
 function Base.show(io::IO, bsm::BSM)
