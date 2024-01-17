@@ -86,3 +86,18 @@ julia> binary_sequence_matrix(seq)
      0  1  0  0
      0  0  1  0
      0  0  0  1
+
+## Creating a one-hot vector of a sequence
+
+Sometimes it proves to be useful to encode a sequence into a one-hot representation. This package provides a function `binaryseq` that returns a one-hot representation of a sequence given a `BioSequence` and the specific molecule (`BioSymbol`) that could be `DNA` or `AA`.
+
+```julia
+julia> binaryseq(seq, DNA_A)
+```
+    4-element view(::BitMatrix, 1, :) with eltype Bool:
+     1
+     0
+     0
+     0
+
+Note that the output is actually using behind the scenes a view of the `BitMatrix` representation of the sequence. This is done for performance reasons.
