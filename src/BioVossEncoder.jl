@@ -5,8 +5,6 @@ using BioSymbols: BioSymbol, compatbits
 using BioSequences:
     SeqOrView,
     LongSequence,
-    NucSeq,
-    LongSequence,
 
     Alphabet,
     NucleicAcidAlphabet,
@@ -18,12 +16,12 @@ using BioSequences:
     AminoAcid,
     AA_A, AA_C, AA_D, AA_E, AA_F, AA_G, AA_H, AA_I, AA_K, AA_L, AA_M, AA_N, AA_P, AA_Q, AA_R, AA_S, AA_T, AA_V, AA_W, AA_Y, AA_Term, AA_Gap,
     randdnaseq,
+    ACGT,
     DNA_A,
     DNA_C,
     DNA_G,
     DNA_T,
-    RNA_U,
-    ACGT
+    RNA_U
 
 using PrecompileTools: @setup_workload, @compile_workload
 
