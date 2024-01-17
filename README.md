@@ -58,7 +58,11 @@ julia> seq = dna"ACGT"
 julia> BinarySequenceMatrix(seq)
 ```
 
-    BinarySequenceMatrix{NucleicAcidAlphabet, BitMatrix}(DNAAlphabet{4}(), Bool[1 0 0 0; 0 1 0 0; 0 0 1 0; 0 0 0 1])
+    4×4 BinarySequenceMatrix of DNAAlphabet{4}():
+     1  0  0  0
+     0  1  0  0
+     0  0  1  0
+     0  0  0  1
 
 For simplicity the `BinarySequenceMatrix` struct provides a property `bsm` that returns the `BitMatrix` representation of the sequence.
 
@@ -77,7 +81,6 @@ Similarly another function that makes use of the `BinarySequenceMatrix` struct i
 ```julia
 julia> binary_sequence_matrix(seq)
 ```
-
     4×4 BitMatrix:
      1  0  0  0
      0  1  0  0
