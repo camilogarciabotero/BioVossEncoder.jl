@@ -1,15 +1,22 @@
 module BioVossEncoder
 
+using BioSymbols: BioSymbol, compatbits
+
 using BioSequences:
     SeqOrView,
+    LongSequence,
 
+    Alphabet,
     NucleicAcidAlphabet,
     DNA,
     DNAAlphabet,
     RNA,
     RNAAlphabet,
-    Alphabet,
+    AminoAcidAlphabet,
+    AminoAcid,
+    AA_A, AA_C, AA_D, AA_E, AA_F, AA_G, AA_H, AA_I, AA_K, AA_L, AA_M, AA_N, AA_P, AA_Q, AA_R, AA_S, AA_T, AA_V, AA_W, AA_Y, AA_Term, AA_Gap,
     randdnaseq,
+    ACGT,
     DNA_A,
     DNA_C,
     DNA_G,
@@ -19,10 +26,12 @@ using BioSequences:
 using PrecompileTools: @setup_workload, @compile_workload
 
 include("types.jl")
-export BinarySequenceMatrix, BSM
+export BinarySequenceMatrix, BSM, AA20
 
 include("utils.jl")
-export binary_sequence_matrix, sequence_binarizer
+export binaryseq, binary_sequence_matrix
+
+include("extended.jl")
 
 @setup_workload begin
     # Putting some things in `@setup_workload` instead of `@compile_workload` can reduce the size of the
