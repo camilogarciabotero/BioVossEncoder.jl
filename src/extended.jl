@@ -12,6 +12,7 @@ function Base.show(io::IO, bsm::BSM)
         cols_to_show = min(15 , max_cols)
         
         for col in 1:cols_to_show
+            col = max(col, 1)  # Ensure col is within valid range
             print(io, " ", rpad(bsm.bsm[row, col] == 1 ? '1' : '0', 2))
         end
         
@@ -19,6 +20,7 @@ function Base.show(io::IO, bsm::BSM)
             print(io, "   ", rpad("…", 5))
             
             for col in (max_cols - 15):max_cols
+                col = max(col, 1)  # Ensure col is within valid range
                 print(io, " ", rpad(bsm.bsm[row, col] == 1 ? '1' : '0', 2))
             end
         end
