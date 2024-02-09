@@ -4,10 +4,11 @@ using BioSymbols: BioSymbol, compatbits
 
 using BioSequences:
     SeqOrView,
-    LongSequence,
 
     Alphabet,
     NucleicAcidAlphabet,
+    NucleicSeqOrView,
+    LongSubSeq,
     DNA,
     DNAAlphabet,
     RNA,
