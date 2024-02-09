@@ -18,7 +18,6 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 
 - Improve and update API documentation.
 
-
 ## [0.2.0]
 
 - Amino acid sequences are now encoded as well method.
