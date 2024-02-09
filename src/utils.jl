@@ -1,20 +1,20 @@
 """
-    binaryseq(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol}
-    binaryseq(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
-    binaryseq(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
+    vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol}
+    vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
+    vossvector(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
 
 Converts a sequence of nucleotides into a binary representation.
 
 # Arguments
 - `sequence::SeqOrView{A}`: The input sequence of nucleotides.
-- `molecule::BioSymbol: The nucleotide to be encoded as 1, while others are encoded as 0.
+- `molecule::BioSymbol`: The nucleotide to be encoded as 1, while others are encoded as 0.
 - `molecules::Tuple{Vararg{T}}`: The nucleotides to be encoded as 1, while others are encoded as 0.
 
 # Returns
-A `BitVector` representing the binary encoding of the input sequence, where 1 indicates the presence of the specified nucleotide and 0 indicates the absence.
+A `BitVector` representing the binary encoding of the input sequence, where 1 indicates the presence of the specified nucleotide and 0 indicates the absence in the ith position of the sequence.
 
 """
-function binaryseq(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
+function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
     @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
     bm = BitMatrix(undef, 4, length(sequence))
     copy!(bm.chunks, sequence.data)
@@ -27,22 +27,22 @@ function binaryseq(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: Nucle
     end
 end
 
-function binaryseq(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
+function vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
     @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
     return sequence .== molecule
 end
 
-function binaryseq(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
-    # @assert all(eltype(molecule) == A for molecule in molecules)  "Input sequence and molecules must be of the same element type."
+# TODO: correct the fail of the argument bounds check from Aqua tests
+function vossvector(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
     @assert eltype(molecules) == eltype(sequence) "Input sequence and molecules must be of the same element type."
     bv = BitVector(undef, length(sequence))
-    @inbounds for molecule::T in molecules
-        bv .|= binaryseq(sequence, molecule)
+    for molecule in molecules
+        bv .|= vossvector(sequence, molecule)
     end
     return bv
 end
 
-# function binaryseq(sequence::SeqOrView{A}, molecule::T) where {A <: AminoAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
+# function vossvector(sequence::SeqOrView{A}, molecule::T) where {A <: AminoAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
 #     @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
 #     bm = BitMatrix(undef, 20, length(sequence))
 #     copy!(bm.chunks, sequence.data)
@@ -53,7 +53,7 @@ end
 #     end
 # end
 
-# function binaryseq(sequence::SeqOrView{A}, molecule::T) where {A <: Alphabet, T <: BioSymbol} # $dseq .=== DNA_A
+# function vossvector(sequence::SeqOrView{A}, molecule::T) where {A <: Alphabet, T <: BioSymbol} # $dseq .=== DNA_A
 #     @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
 #     seqlen = length(sequence)
 #     bv = BitVector(undef, seqlen)
@@ -66,19 +66,19 @@ end
 #     return bv
 # end
 
-# function binaryseq(s::SeqOrView{A}) where {A <: NucleicAcidAlphabet}
+# function vossvector(s::SeqOrView{A}) where {A <: NucleicAcidAlphabet}
 #     M = BitMatrix(undef, 4, length(s))
 #     copy!(M.chunks, s.data)
 #     return M
 # end
 
-# function binaryseq(s::SeqOrView{A}) where {A <: AminoAcidAlphabet}
+# function vossvector(s::SeqOrView{A}) where {A <: AminoAcidAlphabet}
 #     M = BitMatrix(undef, 20, length(s))
 #     copy!(M.chunks, s.data)
 #     return M
 # end
 
-# function binaryseq(s::NucSeq)
+# function vossvector(s::NucSeq)
 #     M = falses(4, length(s))
 #     for (i, s) in enumerate(s)
 #         bits = compatbits(s)
@@ -91,9 +91,9 @@ end
 # end
 
 """
-    binary_sequence_matrix(bsm::BSM{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
-    binary_sequence_matrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
-    binary_sequence_matrix(sequence::SeqOrView{AminoAcidAlphabet}) where {A <: AminoAcidAlphabet}
+    vossmatrix(VossEncoder::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
+    vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
+    vossmatrix(sequence::SeqOrView{AminoAcidAlphabet}) where {A <: AminoAcidAlphabet}
 
 Create a binary sequence matrix from a given nucleic acid sequence.
 
@@ -104,17 +104,17 @@ Create a binary sequence matrix from a given nucleic acid sequence.
 The binary sequence matrix.
 
 """
-function binary_sequence_matrix(bsm::BSM{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
-    return BSM(bsm).bsm
+function vossmatrix(VE::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
+    return VossEncoder(VE).bitmatrix
 end
 
-function binary_sequence_matrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
+function vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
     bm = BitMatrix(undef, 4, length(sequence))
     copy!(bm.chunks, sequence.data)
     return bm
 end
 
-function binary_sequence_matrix(sequence::SeqOrView{AminoAcidAlphabet})
+function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
    bm = BitMatrix(undef, 20, length(sequence))
    for i in 1:20
        bm[i,:] = sequence .== AA20[i]
@@ -122,29 +122,29 @@ function binary_sequence_matrix(sequence::SeqOrView{AminoAcidAlphabet})
    return bm
 end
 
-# function binary_sequence_matrix(sequence::SeqOrView{AminoAcidAlphabet})
+# function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
 #     bm = BitMatrix(undef, 20, length(sequence))
 #     copy!(bm.chunks, sequence.data)
 #     return bm
 # end
 
-# function binary_sequence_matrix(sequence::SeqOrView{A}) where {A <: NucleicAcidAlphabet}
+# function vossmatrix(sequence::SeqOrView{A}) where {A <: NucleicAcidAlphabet}
 #     seqtype = eltype(sequence)
 #     seqlen = length(sequence)
-#     bsm = BitMatrix(undef, 4, seqlen)
+#     VE = BitMatrix(undef, 4, seqlen)
 #     @inbounds for i in 1:seqlen
 #         nucleotide = sequence[i]
-#         bsm[1, i] = (nucleotide == DNA_A)
-#         bsm[2, i] = (nucleotide == DNA_C)
-#         bsm[3, i] = (nucleotide == DNA_G)
-#         bsm[4, i] = seqtype == DNA ? (nucleotide == DNA_T) : seqtype == RNA ? (nucleotide == RNA_U) : error("Unsupported sequence type")
+#         VE[1, i] = (nucleotide == DNA_A)
+#         VE[2, i] = (nucleotide == DNA_C)
+#         VE[3, i] = (nucleotide == DNA_G)
+#         VE[4, i] = seqtype == DNA ? (nucleotide == DNA_T) : seqtype == RNA ? (nucleotide == RNA_U) : error("Unsupported sequence type")
 #     end
-#     return bsm
+#     return VE
 # end
 
-# function binary_sequence_matrix(sequence::SeqOrView{AminoAcidAlphabet})
+# function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
 #     seqlen = length(sequence)
-#     bsm = BitMatrix(undef, 20, length(sequence))
+#     VE = BitMatrix(undef, 20, length(sequence))
 #     @inbounds for i in i:seqlen
 #         aminoacid = sequence[i]
 #         # aminoacid = sequence[i] in AA20 ? sequence[i] : error("Unknown amino acid in position $(findall(sequence[i], sequence)).")
@@ -152,19 +152,19 @@ end
 #         @assert aminoacid != AA_Term "Stop codons in position $(findall(AA_Term, sequence)). Stop codons are not supported."
 #         @assert aminoacid != AA_Gap "Gap in position $(findall(AA_Gap, sequence)). Gaps are not supported."
 #         @inbounds for j in 1:20
-#             bsm[j, i] = (aminoacid == AA20[j])
+#             VE[j, i] = (aminoacid == AA20[j])
 #         end
 #     end
-#     return bsm
+#     return VE
 # end
 
-# function binaryseqmatrix(sequence::SeqOrView{A}) where {A <: Alphabet}
+# function vossvectormatrix(sequence::SeqOrView{A}) where {A <: Alphabet}
 #     seqtype = eltype(sequence)
 #     if seqtype == DNA || seqtype == RNA
-#         bsm = BitMatrix(undef, 4, length(sequence))
+#         VE = BitMatrix(undef, 4, length(sequence))
 #         @inbounds for i in eachindex(ACGT)
-#             bsm[i, :] = binaryseq(sequence, ACGT[i])
+#             VE[i, :] = vossvector(sequence, ACGT[i])
 #         end
 #     end
-#     return bsm 
+#     return VE 
 # end
