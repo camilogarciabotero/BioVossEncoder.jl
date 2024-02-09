@@ -8,7 +8,6 @@ using BioSequences:
     Alphabet,
     NucleicAcidAlphabet,
     NucleicSeqOrView,
-    LongSubSeq,
     DNA,
     DNAAlphabet,
     RNA,
@@ -27,10 +26,10 @@ using BioSequences:
 using PrecompileTools: @setup_workload, @compile_workload
 
 include("types.jl")
-export BinarySequenceMatrix, BSM, AA20
+export VossEncoder, VE, AA20
 
 include("utils.jl")
-export binaryseq, binary_sequence_matrix
+export vossvector, vossmatrix
 
 include("extended.jl")
 
@@ -41,8 +40,8 @@ include("extended.jl")
     @compile_workload begin
         # all calls in this block will be precompiled, regardless of whether
         # they belong to your package or not (on Julia 1.8 and higher)
-        BinarySequenceMatrix(seq)
+        vossmatrix(seq)
     end
 end
 
-end # end module BioVossEncoder
+end # end module VossEncoder
