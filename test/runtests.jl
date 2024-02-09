@@ -1,9 +1,11 @@
 module TestBioVossEncoder
 
-using Test
+using Aqua
 using BioVossEncoder
 using BioSequences
+using Test
 
 include("binarysequencematrix.jl")
+include("aquatest.jl")
 
 end
