@@ -1,11 +1,11 @@
-module TestBioVossEncoder
+module TestVossEncoder
 
 using Aqua
 using BioVossEncoder
 using BioSequences
 using Test
 
-include("binarysequencematrix.jl")
+include("biovossencodertest.jl")
 include("aquatest.jl")
 
 end
