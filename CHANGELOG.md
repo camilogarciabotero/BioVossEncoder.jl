@@ -12,7 +12,7 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 
 - Fixed a bug in the `binaryseq` method that was causing the method to fail for AminoAcid sequences. It is now slower but safe and robust.
 
-- Add múltiple tests to all methods.
+- Add multiple tests to all methods.
 
 - Add Aqua tests to the package.
 
