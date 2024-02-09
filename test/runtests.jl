@@ -1,4 +1,4 @@
-module TestVossEncoder
+module TestBioVossEncoder
 
 using Aqua
 using BioVossEncoder
