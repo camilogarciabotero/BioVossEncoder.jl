@@ -24,7 +24,7 @@ struct BinarySequenceMatrix{A<:Alphabet, B<:BitMatrix}
         return new{Alphabet, BitMatrix}(alphabet, bsm)
     end
 
-    function BinarySequenceMatrix(sequence::SeqOrView{A}) where {A <: NucleicAcidAlphabet} # NucleicSeqOrView
+    function BinarySequenceMatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet} # NucleicSeqOrView
         return new{Alphabet, BitMatrix}(Alphabet(sequence), binary_sequence_matrix(sequence))
     end
 
