@@ -5,7 +5,7 @@ using BioVossEncoder
 using BioSequences
 using Test
 
-include("binarysequencematrix.jl")
+include("biovossencodertest.jl")
 include("aquatest.jl")
 
 end
