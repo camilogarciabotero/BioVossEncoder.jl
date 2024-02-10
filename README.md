@@ -46,7 +46,7 @@ pkg> add BioVossEncoder
 This package provides a simple and fast way to encode biological sequences into Voss representations. The main `struct` provided by this package is `VossEncoder` which is a wrapper of `BitMatrix` that encodes a biological sequence into a bit matrix and its corresponding alphabet. The following example shows how to encode a DNA sequence into a Voss matrix.
 
 ```julia
-julia> using BioSequences, VossEncoder
+julia> using BioSequences, BioVossEncoder
 
 ```
 
@@ -92,7 +92,7 @@ julia> vossmatrix(seq)
 
 Sometimes it proves to be useful to encode a sequence into a Voss vector representation (i.e a bit vector of the sequence from the corresponding molecule alphabet).
 
- This package provides a function `vossvector` that returns a one-hot representation of a sequence given a `BioSequence` and the specific molecule (`BioSymbol`) that could be `DNA` or `AA`.
+ This package provides a function `vossvector` that returns a Voss vector of a sequence given a `BioSequence` and the specific molecule (`BioSymbol`) that could be `DNA` or `AA`.
 
 ```julia
 julia> vossvector(seq, DNA_A)
