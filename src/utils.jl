@@ -13,6 +13,18 @@ Converts a sequence of nucleotides into a binary representation.
 # Returns
 A `BitVector` representing the binary encoding of the input sequence, where 1 indicates the presence of the specified nucleotide and 0 indicates the absence in the ith position of the sequence.
 
+
+# Examples
+
+```julia
+julia> vossvector(dna"ACGT", DNA_A)
+
+    4-element view(::BitMatrix, 1, :) with eltype Bool:
+     1
+     0
+     0
+     0
+```
 """
 function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
     @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
@@ -55,6 +67,33 @@ Create a binary sequence matrix from a given nucleic acid sequence.
 # Returns
 The binary sequence matrix.
 
+# Examples
+
+```julia
+julia> vossmatrix(aa"IANRMWRDTIED")
+
+    20×12 BitMatrix:
+    0  1  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  1  0  0  0  1
+    0  0  0  0  0  0  0  0  0  0  1  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    1  0  0  0  0  0  0  0  0  1  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  1  0  0  0  0  0  0  0
+    0  0  1  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  1  0  0  1  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  1  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+    0  0  0  0  0  1  0  0  0  0  0  0
+    0  0  0  0  0  0  0  0  0  0  0  0
+```
 """
 function vossmatrix(VE::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
     return VossEncoder(VE).bitmatrix
