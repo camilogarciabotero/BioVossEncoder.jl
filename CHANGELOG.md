@@ -6,6 +6,16 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 
 ## [UNRELEASED](https://github.com/camilogarciabotero/BioVossEncoder.jl/compare/v0.2.0...main)
 
+## [0.4.0]
+
+- Massive renaming of methods and structs
+
+- Improves API documentation
+
+- Improved tests included the Aqua tests
+
+- Improved the general documentation of the package and clean README
+
 ## [0.3.0]
 
 - Fixed a bug in the show method of `BinarySequenceMatrix` that was causing the REPL to crash when displaying a `BinarySequenceMatrix` with more than 10 rows.
