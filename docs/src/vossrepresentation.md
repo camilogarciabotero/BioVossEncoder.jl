@@ -1,9 +1,15 @@
 ## Voss representation
 
-A Voss representation of a biological sequence is a binary matrix that encodes the sequence. The Voss representation of a sequence is obtained by encoding the sequence into a binary matrix where each column of the matrix represents a position in the sequence and each row represents a symbol in the alphabet (Voss, 1992). Formally, given a sequence ``S`` of length ``n`` and an alphabet ``\mathscr{A}`` of size ``m``, the Voss matrix of ``S`` is a ``m \times n`` binary matrix ``M`` such that ``M_{i,j} = 1`` if the ``j^{th}`` position of the sequence ``S`` contains the ``i^{th}`` symbol of the alphabet ``\mathscr{A}`` and ``M_{i,j} = 0`` otherwise.
+A Voss representation of a biological sequence is a binary matrix that encodes the sequence. The Voss representation of a sequence is obtained by encoding the sequence into a binary matrix where each column of the matrix represents a position in the sequence and each row represents a symbol in the alphabet (Voss, 1992). Formally, given a sequence ``S`` of length ``n`` and an alphabet ``\mathscr{A}`` of size ``m``, the Voss matrix ``V`` of ``S`` is a ``m \times n`` binary matrix ``V`` such that ``V_{i,j} = 1`` if the ``j^{th}`` position of the sequence ``S`` is equal to the ``i^{th}`` symbol of the alphabet ``\mathscr{A}`` and ``V_{i,j} = 0`` otherwise:
 
+```math
+v_i[j] = \begin{cases} 
+      1 & \text{if } s[j] = \mathscr{a}[i] \\
+      0 & \text{if } s[j] \neq \mathscr{a}[i]
+\end{cases}
+```
 
-For example, the Voss matrix of the sequence ``ACGT`` is the following matrix:
+For example, the Voss matrix of the DNA sequence (i.e of ``\mathscr{A}) == \{A, C, G, T\}``)  is the following matrix:
 
 ```math
 \begin{bmatrix}
@@ -14,7 +20,7 @@ For example, the Voss matrix of the sequence ``ACGT`` is the following matrix:
 \end{bmatrix}
 ```
 
-In this case the alphabet chosen is the DNA alphabet, but the same representation can be used for other alphabets.
+In this case the given alphabet is the DNA alphabet, but the same representation can be used for other alphabets.
 
 ## Encoding BioSequences
 
