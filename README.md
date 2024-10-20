@@ -69,35 +69,38 @@ julia> seq = dna"ACGT"
 ```julia
 julia> VossEncoder(seq)
 ```
-
-        4×4 Voss Matrix of DNAAlphabet{4}():
-         1  0  0  0
-         0  1  0  0
-         0  0  1  0
-         0  0  0  1
-
+```
+4×4 Voss Matrix of DNAAlphabet{4}():
+ 1  0  0  0
+ 0  1  0  0
+ 0  0  1  0
+ 0  0  0  1
+```
 For simplicity the `VossEncoder` struct provides a property `bitmatrix` that returns the `BitMatrix` representation of the sequence.
 
 ```julia
 julia> VossEncoder(seq).bitmatrix
 ```
-
-        4×4 BitMatrix:
-         1  0  0  0
-         0  1  0  0
-         0  0  1  0
-         0  0  0  1
+```
+4×4 BitMatrix:
+ 1  0  0  0
+ 0  1  0  0
+ 0  0  1  0
+ 0  0  0  1
+```
 
 Similarly another function that makes use of the `VossEncoder` structure is `vossmatrix` which returns the `BitMatrix` representation of a sequence directly.
 
 ```julia
 julia> vossmatrix(seq)
 ```
-        4×4 BitMatrix:
-         1  0  0  0
-         0  1  0  0
-         0  0  1  0
-         0  0  0  1
+```   
+4×4 BitMatrix:
+ 1  0  0  0
+ 0  1  0  0
+ 0  0  1  0
+ 0  0  0  1
+```
 
 ## Creating a Voss vector of a sequence
 
@@ -108,12 +111,14 @@ Sometimes it proves to be useful to encode a sequence into a Voss vector represe
 ```julia
 julia> vossvector(seq, DNA_A)
 ```
-        4-element view(::BitMatrix, 1, :) with eltype Bool:
-         1
-         0
-         0
-         0
 
+```
+4-element view(::BitMatrix, 1, :) with eltype Bool:
+ 1
+ 0
+ 0
+ 0
+```
 Note that the output is actually using behind the scenes a view of the `BitMatrix` representation of the sequence. This is done for performance reasons.
 
 ## Related Ideas
@@ -137,7 +142,7 @@ end
 ```
 
 ```julia
-onehot(dna"TGNTKCTW-T")
+julia> onehot(dna"TGNTKCTW-T")
 
 4×10 BitMatrix:
  0  0  1  0  0  0  0  1  0  0
@@ -150,7 +155,7 @@ onehot(dna"TGNTKCTW-T")
 
 
 ```julia
-function onehot_reinterpretator(seq::BioSequence)
+julia> function onehot_reinterpretator(seq::BioSequence)
     seqlen = length(seq)
     modvect = Vector{Int8}(undef, seqlen)
     modifier(value) = (value == DNA_G) ? DNA_M : (value == DNA_T) ? DNA_G : value
@@ -165,7 +170,7 @@ end
 - [SequenceTokenizers.jl](https://github.com/mashu/SequenceTokenizers.jl): A Julia package for tokenizing biological sequences, providing efficient and flexible tokenization methods for various sequence types. Focused on `String` type.
 
 ```julia
-function onehot_tokenizer(str::String)
+julia> function onehot_tokenizer(str::String)
     alphabet = ['A', 'C', 'G', 'T'] 
     tokenizer = SequenceTokenizer(alphabet, 'N')
     tokens = tokenizer([str]) 
@@ -174,7 +179,7 @@ end # 5×N×1 Array{Float32, 3}
 
 ```
 ```julia
-onehot_tokenizer("ACATCAGCATC")
+julia> onehot_tokenizer("ACATCAGCATC")
 
 5×11×1 Array{Float32, 3}:
 [:, :, 1] =
@@ -193,7 +198,8 @@ onehot_tokenizer("ACATCAGCATC")
 1. With `StatsBase.jl`
 
 ```julia
-using StatsBase
+julia> using StatsBase
+
 function onehot_indicator(str::String)::Vector{BitVector}
     codeunits(str) |> indicatormat
 end # returns 4-element Vector{BitVector}:
@@ -202,7 +208,7 @@ end # returns 4-element Vector{BitVector}:
 2. With `collect`: The output is a `Vector{BitVector}` which is somehow disorganized, but it is a valid one-hot encoding.
 
 ```julia
-function onehot_collector(str::String)::Vector{BitVector}
+julia> function onehot_collector(str::String)::Vector{BitVector}
     [collect(str) .== x for x ∈ ['A', 'C', 'G', 'T']]
 end # retuns 4-element Vector{BitVector}:
 
@@ -211,7 +217,7 @@ end # retuns 4-element Vector{BitVector}:
 3. With `permutedims` and `reinterpret`:
 
 ```julia
-function onehot_permutator(seq::BioSequence)
+julia> function onehot_permutator(seq::BioSequence)
     modifier(value) = (value == DNA_G) ? DNA_M : (value == DNA_T) ? DNA_G : value
     reinterpreter = seq -> reinterpret.(Int8, modifier.(seq))[1]
     return 1:4 .== permutedims(reinterpreter.(seq))
@@ -221,8 +227,7 @@ end
 A more efficient version of the previous function is the following: With `codeunits` and `permutedims`:
 
 ```julia
-       
-function onehot_codeunits(str::String)
+julia> function onehot_codeunits(str::String)
                 # A     C     G     T  
     return UInt8[0x41, 0x43, 0x47, 0x54] .== permutedims(codeunits(str))
 end
@@ -231,7 +236,7 @@ end
 ## Benchmarks
 
 ```julia
-using BenchmarkTools
+julia> using BenchmarkTools
 
 str = rand(codeunits("ACGT"),10^6) |> String
 seq = randdnaseq(10^6)
