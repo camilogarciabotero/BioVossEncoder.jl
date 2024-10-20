@@ -51,5 +51,4 @@ end
     JET.test_package(BioVossEncoder; target_defined_modules=true)
 end
 
-
 end
