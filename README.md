@@ -241,7 +241,7 @@ julia> function onehot_permutator(seq::BioSequence)
 end
 ```
 
-A more efficient version of the previous function is the following: With `codeunits` and `permutedims`:
+A more efficient version of the previous function With `codeunits` and `permutedims`:
 
 ```julia
 julia> function onehot_codeunits(str::String)
