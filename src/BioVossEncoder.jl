@@ -26,11 +26,7 @@ using BioSequences:
 using PrecompileTools: @setup_workload, @compile_workload
 
 include("types.jl")
-export VossEncoder, VE, AA20
-
 include("utils.jl")
-export vossvector, vossmatrix
-
 include("extended.jl")
 
 @setup_workload begin

@@ -1,3 +1,5 @@
+export VossEncoder, VE, AA20
+
 const AA20 = (AA_A, AA_C, AA_D, AA_E, AA_F, AA_G, AA_H, AA_I, AA_K, AA_L, AA_M, AA_N, AA_P, AA_Q, AA_R, AA_S, AA_T, AA_V, AA_W, AA_Y)
 
 """
