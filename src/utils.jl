@@ -95,7 +95,7 @@ julia> vossmatrix(aa"IANRMWRDTIED")
     0  0  0  0  0  0  0  0  0  0  0  0
 ```
 """
-function vossmatrix(VE::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
+function vossmatrix(VE::VossEncoder{A}) where {A <: NucleicAcidAlphabet}
     return VossEncoder(VE).bitmatrix
 end
 
@@ -111,4 +111,13 @@ function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
        bm[i,:] = sequence .== AA20[i]
    end
    return bm
+end
+
+export pfm
+
+function pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
+    vc = copy(v)
+    vmax =  all(i -> length(i) == length(vc[1]), vc) ? popat!(vc, 1) : popat!(vc, findmax(length, v)[2])
+    vs = vossmatrix.(v)
+    return map!(+, Int64.(vossmatrix(vmax)), vs...) # m
 end

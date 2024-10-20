@@ -1,10 +1,17 @@
-import Base: size, show
+import Base: size, show, eltype, length
 
-size(b::VossEncoder) = size(b.bitmatrix)
+@inline Base.length(ve::VossEncoder{A}) where {A} = length(ve.bitmatrix)
+@inline Base.size(ve::VossEncoder{A}) where {A} = size(ve.bitmatrix)
+@inline Base.eltype(ve::VossEncoder{A}) where {A} = eltype(A)
+
+Base.:(==)(a::VossEncoder{A}, b::VossEncoder{A}) where {A} = eltype(a) == eltype(b) && a.bitmatrix == b.bitmatrix
+Base.:(^)(a::VossEncoder{A}, n::Int) where {A} = VossEncoder{A}(a.bitmatrix^n)
 
 function Base.show(io::IO, ve::VossEncoder)
-    println(io, " $(size(ve.bitmatrix, 1))×$(size(ve.bitmatrix, 2)) Voss Matrix of $(ve.alphabet):")
-
+    # println(io, " $(size(ve.bitmatrix, 1))×$(size(ve.bitmatrix, 2)) Voss Matrix of $(ve.alphabet):")
+    alphtype = eltype(ve)
+    println(io, "VossEncoder of $alphtype alphabet:")
+    
     for row in 1:size(ve.bitmatrix, 1)
         print(io, " ")
         max_cols = size(ve.bitmatrix, 2)
