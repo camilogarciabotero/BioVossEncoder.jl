@@ -191,6 +191,22 @@ julia> onehot_tokenizer("ACATCAGCATC")
  0.0  0.0  0.0  1.0  0.0  0.0  0.0  0.0  0.0  1.0  0.0
 ```
 
+- [OneHotArrays.jl from FluxML](https://github.com/FluxML/OneHotArrays.jl)
+
+```julia
+julia> using OneHotArrays
+
+onehotbatch(str, ('A', 'C', 'G','T'))
+
+4×1000000 OneHotMatrix(::Vector{UInt32}) with eltype Bool:
+ ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  1  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅  ⋅  …  ⋅  ⋅  ⋅  1  1  1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅
+ 1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅  1  ⋅  1     ⋅  1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  1  1  ⋅  ⋅  ⋅  ⋅  ⋅  1  1  ⋅  1
+ ⋅  1  ⋅  1  1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  ⋅  1  ⋅  1  ⋅     ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  1  1  ⋅  ⋅  ⋅  ⋅  1  ⋅  1  ⋅  ⋅  ⋅  ⋅  ⋅
+ ⋅  ⋅  1  ⋅  ⋅  1  1  1  1  ⋅  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅     1  ⋅  1  ⋅  ⋅  ⋅  1  1  ⋅  1  1  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  ⋅  1  ⋅  ⋅  ⋅  ⋅  1  ⋅
+
+```
+
+
 - [Fasta2onehot.jl](https://github.com/kchu25/Fasta2onehot.jl): A Julia package for converting FASTA sequences into one-hot encoded matrices.
 
 - [A Discourse thread for OneHot for `String`](https://discourse.julialang.org/t/all-the-ways-to-do-one-hot-encoding/64807):
@@ -253,6 +269,9 @@ seq = randdnaseq(10^6)
 @time onehot_indicator($str); # 17.413 ms (14 allocations: 3.82 MiB)
 @btime onehot_collector($str); # 12.659 ms (32 allocations: 15.74 MiB)
 @btime onehot_tokenizer(str) # 22.816 ms (19 allocations: 26.70 MiB)
+
+# From the special FluxML ecosystem
+@btime onehotbatch($str, ('A', 'C', 'G','T')); # 11.418 ms (3 allocations: 3.81 MiB)
 ```
 
 ```julia
