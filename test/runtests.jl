@@ -8,8 +8,6 @@ using Test
 using TestItems
 using TestItemRunner
 
-include("aquatest.jl")
-
 @run_package_tests
 
 @testitem "VE" begin
