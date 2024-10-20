@@ -97,8 +97,8 @@ julia> vossmatrix(aa"IANRMWRDTIED")
     0  0  0  0  0  0  0  0  0  0  0  0
 ```
 """
-function vossmatrix(VE::VossEncoder{A}) where {A <: NucleicAcidAlphabet}
-    return VossEncoder(VE).bitmatrix
+function vossmatrix(ve::VossEncoder{A}) where {A <: Alphabet}
+    return ve.bitmatrix
 end
 
 function vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
