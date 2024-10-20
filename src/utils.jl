@@ -1,3 +1,5 @@
+export vossvector, vossmatrix, pfm
+
 """
     vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol}
     vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
@@ -95,8 +97,8 @@ julia> vossmatrix(aa"IANRMWRDTIED")
     0  0  0  0  0  0  0  0  0  0  0  0
 ```
 """
-function vossmatrix(VE::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
-    return VossEncoder(VE).bitmatrix
+function vossmatrix(ve::VossEncoder{A}) where {A <: Alphabet}
+    return ve.bitmatrix
 end
 
 function vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
@@ -111,4 +113,29 @@ function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
        bm[i,:] = sequence .== AA20[i]
    end
    return bm
+end
+
+"""
+    pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
+
+Calculate the position frequency matrix (PFM) for a given vector of sequences or sequence views.
+
+# Arguments
+- `v::Vector{T}`: A vector of sequences or sequence views, where each element is of type `T` which is a subtype of `SeqOrView` parameterized by an `Alphabet`.
+
+# Returns
+- A matrix representing the position frequency matrix (PFM) of the input sequences.
+
+# Details
+- The function first creates a copy of the input vector `v`.
+- It then determines the sequence with the maximum length (`vmax`) and removes it from the vector.
+- The function computes the Voss matrix for each sequence in the vector.
+- Finally, it sums the Voss matrices and returns the result as the position frequency matrix.
+
+"""
+function pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
+    vc = copy(v)
+    vmax =  all(i -> length(i) == length(vc[1]), vc) ? popat!(vc, 1) : popat!(vc, findmax(length, v)[2])
+    vs = vossmatrix.(v)
+    return map!(+, Int64.(vossmatrix(vmax)), vs...) # m
 end
