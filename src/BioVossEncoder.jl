@@ -4,6 +4,8 @@ using BioSymbols: BioSymbol, compatbits
 
 using BioSequences:
     SeqOrView,
+    LongSequence,
+    NucSeq,
 
     Alphabet,
     NucleicAcidAlphabet,
