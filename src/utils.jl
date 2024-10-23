@@ -28,10 +28,10 @@ julia> vossvector(dna"ACGT", DNA_A)
      0
 ```
 """
-function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
-    @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    bm = BitMatrix(undef, 4, length(sequence))
-    copy!(bm.chunks, sequence.data)
+function vossvector(seq::NucSeq{4}, molecule::T) where {T <: BioSymbol} # $dseq .=== DNA_A
+    @assert typeof(molecule) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    bm = BitMatrix(undef, 4, length(seq))
+    copy!(bm.chunks, seq.data)
     if molecule in ACGT
         return @view bm[findfirst(x -> x == molecule, ACGT), :]
     elseif molecule == RNA_U
@@ -41,17 +41,17 @@ function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: Nucl
     end
 end
 
-function vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
-    @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    return sequence .== molecule
+function vossvector(seq::LongSequence{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
+    @assert typeof(molecule) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    return seq .== molecule
 end
 
 # TODO: correct the fail of the argument bounds check from Aqua tests
-function vossvector(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
-    @assert eltype(molecules) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    bv = BitVector(undef, length(sequence))
+function vossvector(seq::LongSequence{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
+@assert eltype(molecules) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    bv = BitVector(undef, length(seq))
     for molecule in molecules
-        bv .|= vossvector(sequence, molecule)
+        bv .|= vossvector(seq, molecule)
     end
     return bv
 end
@@ -101,16 +101,16 @@ function vossmatrix(ve::VossEncoder{A}) where {A <: Alphabet}
     return ve.bitmatrix
 end
 
-function vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
-    bm = BitMatrix(undef, 4, length(sequence))
-    copy!(bm.chunks, sequence.data)
+function vossmatrix(seq::NucSeq{4})
+    bm = BitMatrix(undef, 4, length(seq))
+    copy!(bm.chunks, seq.data)
     return bm
 end
 
-function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
-   bm = BitMatrix(undef, 20, length(sequence))
+function vossmatrix(seq::LongSequence{AminoAcidAlphabet})
+   bm = BitMatrix(undef, 20, length(seq))
    for i in 1:20
-       bm[i,:] = sequence .== AA20[i]
+       bm[i,:] = seq .== AA20[i]
    end
    return bm
 end
