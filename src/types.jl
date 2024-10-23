@@ -22,7 +22,7 @@ struct VossEncoder{A<:Alphabet}
     bitmatrix::BitMatrix
 end
 
-function VossEncoder(seq::SeqOrView{A}) where {A<:Alphabet}
+function VossEncoder(seq::LongSequence{A}) where {A<:Alphabet}
     return VossEncoder{A}(vossmatrix(seq))
 end
 
