@@ -171,7 +171,6 @@ function vossmatrix(str::String)::BitMatrix
     return onehot
 end
 
-
 """
     pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
 

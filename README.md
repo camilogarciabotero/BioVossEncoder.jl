@@ -260,12 +260,13 @@ seq = randdnaseq(10^6)
 
 # VossEncoder.jl
 @btime vossmatrix($seq); # 32.056 μs (4 allocations: 488.42 KiB)
+@btime vossvector($str); # 11.565 ms (10 allocations: 488.62 KiB)
 
 # Others
 @btime onehot($seq); # 4.408 ms (4 allocations: 488.42 KiB)
 @btime onehot_codeunits($str); # 8.124 ms (6 allocations: 488.48 KiB)
 @btime onehot_reinterpretator($seq); # 10.140 ms (7 allocations: 1.43 MiB)
-@btime onehot_permutator(seq); # 9.670 ms (10 allocations: 2.38 MiB)
+@btime onehot_permutator($seq); # 9.670 ms (10 allocations: 2.38 MiB)
 @time onehot_indicator($str); # 17.413 ms (14 allocations: 3.82 MiB)
 @btime onehot_collector($str); # 12.659 ms (32 allocations: 15.74 MiB)
 @btime onehot_tokenizer(str) # 22.816 ms (19 allocations: 26.70 MiB)
