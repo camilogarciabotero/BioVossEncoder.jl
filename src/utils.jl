@@ -149,12 +149,13 @@ function vossmatrix(str::String)::BitMatrix
 
     guessedalphabet = guess_alphabet(str)
     # Define nucleotide codes
-    #                        A, C, G, T
+    #                 A,    C,    G,    T
     dnauint8 = UInt8[0x41, 0x43, 0x47, 0x54]
+    #                 A,    C,    G,    U
     rnauint8 = UInt8[0x41, 0x43, 0x47, 0x55]
     
     # Define amino acid codes
-    #               A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V
+    #               A,     R,    N,    D,     C,    Q,   E,    G,    H,    I,    L,    K,    M,    F,    P,    S,    T,    W,    Y,    V
     aauint8 = UInt8[0x41, 0x52, 0x4E, 0x44, 0x43, 0x51, 0x45, 0x47, 0x48, 0x49, 0x4C, 0x4B, 0x4D, 0x46, 0x50, 0x53, 0x54, 0x57, 0x59, 0x56]
     
 
