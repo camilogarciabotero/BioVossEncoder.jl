@@ -24,9 +24,9 @@
 
 > A Julia package for encoding biological sequences into Voss representations
 
-- Can encode DNA, RNA, and Protein sequences.
 - Provides the fastest encoding of biological sequences into Voss representations (aka. OneHot vectors).
-- Can handle ambiguous nucleotides and amino acids.
+- Can encode all `BioSequence` types and `String`s with unambiguous nucleotides and amino acids.
+- Can handle ambiguous nucleotides and amino acids from a `BioSequence`.
 - Provides a simple and intuitive API for encoding biological sequences.
 - Includes a dedicated type `VossEncoder` that match the `BioSequence`s types.
 - Can be used for single nucletide encoding `vv = vossvector(dna"ACGT", DNA_A)`.
@@ -269,7 +269,7 @@ seq = randdnaseq(10^6)
 @btime onehot_permutator($seq); # 9.670 ms (10 allocations: 2.38 MiB)
 @time onehot_indicator($str); # 17.413 ms (14 allocations: 3.82 MiB)
 @btime onehot_collector($str); # 12.659 ms (32 allocations: 15.74 MiB)
-@btime onehot_tokenizer(str) # 22.816 ms (19 allocations: 26.70 MiB)
+@btime onehot_tokenizer($str) # 22.816 ms (19 allocations: 26.70 MiB)
 
 # From the special FluxML ecosystem
 @btime onehotbatch($str, ('A', 'C', 'G','T')); # 11.418 ms (3 allocations: 3.81 MiB)
