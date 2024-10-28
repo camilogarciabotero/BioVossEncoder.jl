@@ -1,14 +1,14 @@
 export vossvector, vossmatrix, pfm
 
 """
-    vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol}
-    vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
-    vossvector(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
+    vossvector(seq::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol}
+    vossvector(seq::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
+    vossvector(seq::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
 
 Converts a sequence of nucleotides into a binary representation.
 
 # Arguments
-- `sequence::SeqOrView{A}`: The input sequence of nucleotides.
+- `seq::SeqOrView{A}`: The input sequence of nucleotides.
 - `molecule::BioSymbol`: The nucleotide to be encoded as 1, while others are encoded as 0.
 - `molecules::Tuple{Vararg{T}}`: The nucleotides to be encoded as 1, while others are encoded as 0.
 
@@ -28,10 +28,22 @@ julia> vossvector(dna"ACGT", DNA_A)
      0
 ```
 """
-function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
-    @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    bm = BitMatrix(undef, 4, length(sequence))
-    copy!(bm.chunks, sequence.data)
+function vossvector(seq::NucleicSeqOrView{A}, molecule::T) where {A <: NucleicAcidAlphabet, T <: BioSymbol} # $dseq .=== DNA_A
+    @assert typeof(molecule) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    
+    if seq isa LongSubSeq
+        @warn "The input sequence is a view, the return size of the matrix correspond to the view window."
+    end
+
+    convseq = if eltype(seq) == DNA
+        seq isa LongDNA{4} ? seq : convert(LongDNA{4}, seq)
+    else
+        seq isa LongRNA{4} ? seq : convert(LongRNA{4}, seq)
+    end
+
+    bm = BitMatrix(undef, 4, length(convseq))
+    copy!(bm.chunks, convseq.data)
+
     if molecule in ACGT
         return @view bm[findfirst(x -> x == molecule, ACGT), :]
     elseif molecule == RNA_U
@@ -41,25 +53,25 @@ function vossvector(sequence::NucleicSeqOrView{A}, molecule::T) where {A <: Nucl
     end
 end
 
-function vossvector(sequence::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
-    @assert typeof(molecule) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    return sequence .== molecule
+function vossvector(seq::SeqOrView{AminoAcidAlphabet}, molecule::T) where {T <: BioSymbol}
+    @assert typeof(molecule) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    return seq .== molecule
 end
 
 # TODO: correct the fail of the argument bounds check from Aqua tests
-function vossvector(sequence::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
-    @assert eltype(molecules) == eltype(sequence) "Input sequence and molecules must be of the same element type."
-    bv = BitVector(undef, length(sequence))
+function vossvector(seq::SeqOrView{A}, molecules::Tuple{Vararg{T}}) where {A <: Alphabet, T <: BioSymbol}
+    @assert eltype(molecules) == eltype(seq) "Input sequence and molecules must be of the same element type."
+    bv = BitVector(undef, length(seq))
     for molecule in molecules
-        bv .|= vossvector(sequence, molecule)
+        bv .|= vossvector(seq, molecule)
     end
     return bv
 end
 
 """
     vossmatrix(VossEncoder::VossEncoder{A, B}) where {A <: NucleicAcidAlphabet, B <: BitMatrix}
-    vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
-    vossmatrix(sequence::SeqOrView{AminoAcidAlphabet}) where {A <: AminoAcidAlphabet}
+    vossmatrix(seq::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
+    vossmatrix(seq::SeqOrView{AminoAcidAlphabet}) where {A <: AminoAcidAlphabet}
 
 Create a binary sequence matrix from a given nucleic acid sequence.
 
@@ -101,19 +113,64 @@ function vossmatrix(ve::VossEncoder{A}) where {A <: Alphabet}
     return ve.bitmatrix
 end
 
-function vossmatrix(sequence::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
-    bm = BitMatrix(undef, 4, length(sequence))
-    copy!(bm.chunks, sequence.data)
+function vossmatrix(seq::NucleicSeqOrView{A}) where {A <: NucleicAcidAlphabet}
+
+    if seq isa LongSubSeq
+        @warn "The input sequence is a view, the return size of the matrix correspond to the view window."
+    end
+
+    convseq = if eltype(seq) == DNA
+        seq isa LongDNA{4} ? seq : convert(LongDNA{4}, seq)
+    else
+        seq isa LongRNA{4} ? seq : convert(LongRNA{4}, seq)
+    end
+
+    bm = BitMatrix(undef, 4, length(convseq))
+    copy!(bm.chunks, convseq.data)
+
     return bm
 end
 
-function vossmatrix(sequence::SeqOrView{AminoAcidAlphabet})
-   bm = BitMatrix(undef, 20, length(sequence))
-   for i in 1:20
-       bm[i,:] = sequence .== AA20[i]
+function vossmatrix(seq::SeqOrView{AminoAcidAlphabet})
+   bm = BitMatrix(undef, 20, length(seq))
+   @inbounds for i in 1:20
+       bm[i,:] = seq .== AA20[i]
    end
    return bm
 end
+
+# function vossmatrix(str::String)
+#     return vossmatrix(bioseq(str))    
+# end
+
+function vossmatrix(str::String)::BitMatrix
+
+    # @warn "The input sequence is a string. Consider using a BioSequence type as the dispatched method is faster."
+
+    guessedalphabet = guess_alphabet(str)
+    # Define nucleotide codes
+    #                        A, C, G, T
+    dnauint8 = UInt8[0x41, 0x43, 0x47, 0x54]
+    rnauint8 = UInt8[0x41, 0x43, 0x47, 0x55]
+    
+    # Define amino acid codes
+    #               A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V
+    aauint8 = UInt8[0x41, 0x52, 0x4E, 0x44, 0x43, 0x51, 0x45, 0x47, 0x48, 0x49, 0x4C, 0x4B, 0x4D, 0x46, 0x50, 0x53, 0x54, 0x57, 0x59, 0x56]
+    
+
+    onehot = if guessedalphabet == DNAAlphabet{2}() #|| guessedalphabet == DNAAlphabet{4}()
+        dnauint8 .== permutedims(codeunits(str))
+    elseif guessedalphabet == RNAAlphabet{2}() #|| guessedalphabet == RNAAlphabet{4}()
+        rnauint8 .== permutedims(codeunits(str))
+    elseif guessedalphabet == AminoAcidAlphabet()
+        aauint8 .== permutedims(codeunits(str))
+    else
+        error("Unsupported alphabet type. Make sure the provided sequence don't present any ambiguous character.")
+    end
+
+    return onehot
+end
+
 
 """
     pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
@@ -139,3 +196,4 @@ function pfm(v::Vector{T}) where {T <: SeqOrView{<:Alphabet}}
     vs = vossmatrix.(v)
     return map!(+, Int64.(vossmatrix(vmax)), vs...) # m
 end
+
