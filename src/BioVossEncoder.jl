@@ -12,7 +12,7 @@ using BioSequences:
     LongRNA,
     guess_alphabet,
     LongSubSeq,
-    bioseq,
+    # bioseq,
     DNA,
     DNAAlphabet,
     RNA,
