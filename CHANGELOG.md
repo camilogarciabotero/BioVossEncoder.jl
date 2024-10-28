@@ -6,6 +6,15 @@ The format is based on Keep a Changelog and this project adheres to Semantic Ver
 
 ## [UNRELEASED](https://github.com/camilogarciabotero/BioVossEncoder.jl/compare/v0.2.0...main)
 
+## [0.6.0]
+
+- Improve correctness of the vossmatrix for 2-bit sequences.
+- Add support for `String`s
+
+## [0.5.0]
+
+- Migrate VE to be bioseq type specific (#9) (@camilogarciabotero)
+
 ## [0.4.0]
 
 - Massive renaming of methods and structs
