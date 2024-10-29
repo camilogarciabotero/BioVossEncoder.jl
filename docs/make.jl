@@ -26,6 +26,7 @@ DocMeta.setdocmeta!(BioVossEncoder, :DocTestSetup, :(using BioVossEncoder); recu
 
 fmt = DocumenterVitepress.MarkdownVitepress(
     # repo = "https://github.com/camilogarciabotero/",
+    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
     devbranch = "main",
 )
 
@@ -38,8 +39,8 @@ pgs = [
 makedocs(;
     modules = [BioVossEncoder],
     authors = "Camilo García-Botero",
-    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
-    # repo = Remotes.GitHub("camilogarciabotero", "BioVossEncoder.jl"),
+    # repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
+    repo = Remotes.GitHub("camilogarciabotero", "BioVossEncoder.jl"),
     sitename = "BioVossEncoder.jl",
     format = fmt,
     pages = pgs,
