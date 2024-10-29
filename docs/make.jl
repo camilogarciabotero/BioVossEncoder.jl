@@ -25,7 +25,7 @@ DocMeta.setdocmeta!(BioVossEncoder, :DocTestSetup, :(using BioVossEncoder); recu
 # deploydocs(; repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl")
 
 fmt = DocumenterVitepress.MarkdownVitepress(
-    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl/",
+    repo = "https://github.com/camilogarciabotero/",
     devbranch = "main",
 )
 
