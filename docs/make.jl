@@ -32,7 +32,7 @@ fmt = DocumenterVitepress.MarkdownVitepress(
 pgs = [
     "Home" => "index.md",
     "Get started" => "getstarted.md",
-    "Voss representation" => "vossrepresentation.md",
+    "Voss Representation" => "vossrepresentation.md",
     "API" => "api.md"
 ]
 
