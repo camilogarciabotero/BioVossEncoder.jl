@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "BioVossEncoder.jl"
-  text: "Representing biological sequences as Markov chains"
+  text: "Encoding biological sequences into Voss representation"
   tagline:
   image:
     src: /logo.png
@@ -24,7 +24,7 @@ hero:
 Install `BioVossEncoder` from the julia REPL. Press `]` to enter `pkg` mode, and enter the `add BioVossEncoder` command.
 
 ```julia
-(@v1.10) pkg> add BioMarkovChains
+(@v1.10) pkg> add BioVossEncoder
 ```
 
 For more information, see the [Get Started](getstarted.md) section.
