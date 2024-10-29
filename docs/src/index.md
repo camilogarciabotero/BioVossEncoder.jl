@@ -21,7 +21,7 @@ hero:
 ```
 
 
-Install `BioVossEncoder` from the julia REPL. Press `]` to enter `pkg` mode, and enter the `add BioMarkovChains` command.
+Install `BioVossEncoder` from the julia REPL. Press `]` to enter `pkg` mode, and enter the `add BioVossEncoder` command.
 
 ```julia
 (@v1.10) pkg> add BioMarkovChains

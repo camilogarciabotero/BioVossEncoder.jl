@@ -6,7 +6,7 @@ import footnote from "markdown-it-footnote";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   base: 'REPLACE_ME_DOCUMENTER_VITEPRESS',// TODO: replace this in makedocs!
-  title: 'BioMarkovChains.jl',
+  title: 'BioVossEncoder.jl',
   description: "A VitePress Site",
   lastUpdated: true,
   cleanUrls: true,
