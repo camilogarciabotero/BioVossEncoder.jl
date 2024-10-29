@@ -2,19 +2,21 @@
 ## Installation
 
 
-To get started with BioVossEncoder, you need to install it first. You can do this using Julia's package manager. Open Julia's REPL and run the following command:
+You can install BioMarkovChains from the julia REPL. Press ] to enter pkg mode, and enter the following:
 
 ```julia
-using Pkg
-Pkg.add("BioVossEncoder")
+] add BioVossEncoder
 ```
+
+
+## Create a Voss matrix from a DNA sequence
 
 Once installed, you can use the `vossmatrix` function to generate a Voss matrix from a DNA sequence. Here is an example:
 
 ```julia
-julia> using BioVossEncoder
+julia> using BioSequences, BioVossEncoder
 
-julia> seq = "ACGT"
+julia> seq = dna"ACGT"
 julia> vossmatrix(seq)
 ```
 

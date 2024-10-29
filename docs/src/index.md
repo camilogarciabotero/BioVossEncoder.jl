@@ -24,7 +24,7 @@ hero:
 Install `BioVossEncoder` from the julia REPL. Press `]` to enter `pkg` mode, and enter the `add BioVossEncoder` command.
 
 ```julia
-(@v1.10) pkg> add BioVossEncoder
+(@v1.11) pkg> add BioVossEncoder
 ```
 
 For more information, see the [Get Started](getstarted.md) section.

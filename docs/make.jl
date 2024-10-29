@@ -31,15 +31,14 @@ fmt = DocumenterVitepress.MarkdownVitepress(
 
 pgs = [
     "Home" => "index.md",
+    "Get started" => "getstarted.md",
     "Voss representation" => "vossrepresentation.md",
-    "Getting started" => "getstarted.md",
     "API" => "api.md"
 ]
 
 makedocs(;
     modules = [BioVossEncoder],
     authors = "Camilo García-Botero",
-    # repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
     repo = Remotes.GitHub("camilogarciabotero", "BioVossEncoder.jl"),
     sitename = "BioVossEncoder.jl",
     format = fmt,
