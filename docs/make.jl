@@ -25,7 +25,6 @@ DocMeta.setdocmeta!(BioVossEncoder, :DocTestSetup, :(using BioVossEncoder); recu
 # deploydocs(; repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl")
 
 fmt = DocumenterVitepress.MarkdownVitepress(
-    # repo = "https://github.com/camilogarciabotero/",
     repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
     devbranch = "main",
 )
@@ -52,6 +51,6 @@ deploydocs(;
     repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
     devbranch = "main",
     target = "build", # this is where Vitepress stores its output
-    # branch = "gh-pages",
+    branch = "gh-pages",
     push_preview = true
 )
