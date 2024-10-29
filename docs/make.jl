@@ -38,8 +38,8 @@ pgs = [
 makedocs(;
     modules = [BioVossEncoder],
     authors = "Camilo García-Botero",
-    # repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
-    repo = Remotes.GitHub("camilogarciabotero", "BioVossEncoder.jl"),
+    repo = "https://github.com/camilogarciabotero/BioVossEncoder.jl",
+    # repo = Remotes.GitHub("camilogarciabotero", "BioVossEncoder.jl"),
     sitename = "BioVossEncoder.jl",
     format = fmt,
     pages = pgs,
